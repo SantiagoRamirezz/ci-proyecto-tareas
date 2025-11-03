@@ -1,6 +1,6 @@
 📘 Descripción
 
-Este proyecto es una aplicación sencilla de gestión de tareas desarrollada con Node.js, Express y MongoDB, diseñada para demostrar el uso de Docker y Docker Compose como parte del proceso de Integración Continua (CI).
+Este proyecto corresponde a una aplicación de gestión de tareas desarrollada con Node.js, Express y MongoDB, creada para ejemplificar procesos de Integración Continua (CI) con Docker y GitHub.
 
 El sistema consta de dos servicios principales:
 
@@ -51,3 +51,5 @@ Iniciará ambos contenedores.
 Una vez los contenedores estén corriendo, abre tu navegador en:
 
 🔗 http://localhost:3000
+
+

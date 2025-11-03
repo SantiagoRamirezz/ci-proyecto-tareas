@@ -22,6 +22,13 @@ Docker Desktop
 
 Node.js
 
+🤖 Instalar dependencias
+
+Si deseas probar el backend directamente en tu máquina ejecuta
+
+cd backend
+npm install
+
 
 ⚒️ Construir y levantar los contenedores
 

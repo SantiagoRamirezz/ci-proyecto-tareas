@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    
+
     stages {
         stage('Checkout') {
             steps {
@@ -9,25 +9,45 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Install Dependencies') {
             steps {
-                echo 'Construyendo contenedor...'
-                sh 'echo "Simulación de build"'
+                echo 'Instalando dependencias del backend...'
+                dir('backend') {
+                    sh 'npm ci'
+                }
             }
         }
 
         stage('Test') {
             steps {
-                echo 'Ejecutando pruebas básicas...'
-                sh 'echo "Simulación de pruebas: OK"'
+                echo 'Ejecutando pruebas automatizadas...'
+                dir('backend') {
+                    sh 'npm test'
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Simulación de compilación...'
+                sh 'echo "Build completado"'
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Levantando contenedores...'
-                sh 'echo "Simulación de despliegue"'
+                echo 'Simulación de despliegue...'
+                sh 'echo "Deploy completado"'
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline ejecutado correctamente.'
+        }
+        failure {
+            echo 'El pipeline falló. Revisar logs.'
         }
     }
 }

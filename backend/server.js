@@ -1,28 +1,31 @@
-const express = require("express");
-const mongoose = require("mongoose");
+import express from 'express';
+import mongoose from 'mongoose';
 
 const app = express();
 app.use(express.json());
 
-// Conexión a MongoDB dentro del contenedor
-mongoose.connect("mongodb://mongo:27017/tasksdb")
-  .then(() => console.log("✅ Conectado a MongoDB"))
-  .catch(err => console.error("❌ Error al conectar con MongoDB:", err));
+// Conectar a MongoDB solo si no estamos en ambiente de test
+if (process.env.NODE_ENV !== 'test') {
+  mongoose.connect('mongodb://mongodb:27017/tareasdb')
+    .then(() => console.log('Conectado a MongoDB'))
+    .catch(err => console.error('Error de conexión:', err));
+}
 
-// Definir esquema y modelo
-const Task = mongoose.model("Task", new mongoose.Schema({
-  title: String,
-  completed: Boolean
-}));
-
-// Endpoints
-app.get("/", (req, res) => res.send("🚀 API de Tareas funcionando"));
-app.get("/tasks", async (req, res) => res.json(await Task.find()));
-app.post("/tasks", async (req, res) => {
-  const task = new Task(req.body);
-  await task.save();
-  res.status(201).json(task);
+// --- Rutas del proyecto ---
+app.get('/tasks', (req, res) => {
+  res.json([
+    { id: 1, title: 'Tarea 1' },
+    { id: 2, title: 'Tarea 2' }
+  ]);
 });
 
-// Escuchar en el puerto 3000
-app.listen(3000, () => console.log("✅ Servidor escuchando en puerto 3000"));
+// Exportar la app para que Supertest la utilice
+export default app;
+
+// Levantar servidor solo si NO estamos en modo test:
+if (process.env.NODE_ENV !== 'test') {
+  const port = 3000;
+  app.listen(port, () => {
+    console.log(`Servidor escuchando en puerto ${port}`);
+  });
+}

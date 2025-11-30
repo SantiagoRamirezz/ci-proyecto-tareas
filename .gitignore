@@ -10,6 +10,3 @@ docker-compose.override.yml
 # Sistema
 .DS_Store
 Thumbs.db
-
-# Dependencias temporales
-package-lock.json
